@@ -5,7 +5,7 @@ using UnityEngine;
 // SEE https://youtu.be/iRgh1EUxs6Y for an explanation of island borders.
 
 
-[ExecuteAlways]
+[ExecuteInEditMode, ExecuteAlways]
 public class TerrainTool : MonoBehaviour
 {
     public Terrain _Terrain;
@@ -111,6 +111,11 @@ public class TerrainTool : MonoBehaviour
             BuildEdgeReductionMap();
         }
 
+        if (EdgeReductionMap == null)
+        {
+            BuildEdgeReductionMap();
+        }
+
         RedrawTerrainMesh();
         HandleFlatteners();
         PushChanges();
@@ -158,6 +163,11 @@ public class TerrainTool : MonoBehaviour
 
     public void RedrawTerrainMesh()
     {
+        if (Mesh == null)
+        {
+            PullTerrain();
+        }
+
         for (int x = 0; x < HeightRes; x++)
         {
             for (int y = 0; y < HeightRes; y++)
