@@ -1,39 +1,16 @@
 using UnityEngine;
 
+// SEE  for an explanation of forcegraph's initial implimentation
 // SEE https://youtu.be/6NT-OoEdWQE for an explanation 3ply perlin slopes.
 // SEE https://youtu.be/Vif8cdd-GVE for an explanation of 1 perlin slope combo.
 // SEE https://youtu.be/iRgh1EUxs6Y for an explanation of island borders.
 
 
-[ExecuteInEditMode, ExecuteAlways]
+[ExecuteAlways]
 public class TerrainTool : MonoBehaviour
 {
     public Terrain _Terrain;
     public TerrainData _TerrainData;
-
-    [Header("Perlin Land Shaping")]
-    [Range(0.0001f, 0.05f)]
-    public float PerlinStretch;
-    [Range(0.0001f, 0.05f)]
-    public float PerlinStretch2;
-    [Range(0.0001f, 0.05f)]
-    public float PerlinFluxStretch;
-
-    [Range(0f, 1f)]
-    public float HeightMultiplier;
-    [Range(0f, 1f)]
-    public float HeightMultiplier2;
-
-    public AnimationCurve PerlinSlope;
-    public AnimationCurve PerlinSlope2;
-    public AnimationCurve PerlinFluxSlope;
-
-    [Header("Island Border")]
-    [Range(0f, 1f)]
-    public float PercentDistanceFromEdge;
-    public AnimationCurve EdgeBorder;
-
-    public TerrainFlattener[] Flatteners;
 
     public float[,] Mesh
     {
@@ -43,50 +20,40 @@ public class TerrainTool : MonoBehaviour
         }
         set
         {
-            Mesh = value;
+            _Mesh = value;
         }
     }
+    
+    [System.Serializable]
+    public class LayerFields
+    {
+        public TerrainModLayer Layer;
+        public bool Rebuild = false;
+        public bool Apply = false;
+    }
 
-    private int HeightRes;
+    public LayerFields[] Layers;
+    public bool RebuildAll = false;
+    public bool ApplyAll = false;
+
+    [HideInInspector]
+    public int HeightRes;
     private float[,] _Mesh;
-    private float[,] EdgeReductionMap;
-    private float PreviousPercentDistanceFromEdge;
-    private AnimationCurve PreviousEdgeBorder;
     private Vector3 size;
     private Vector3 scale;
 
-
     public void OnEnable()
     {
-        PreviousPercentDistanceFromEdge = float.MinValue;
-        PreviousEdgeBorder = null;
-        PullTerrain();
-        BuildEdgeReductionMap();
-        
-    }
-
-    public void Start()
-    {
-        this.enabled = false;
-    }
-
-    public void Update()
-    {
-        if (transform.hasChanged)
+        foreach(var layer in Layers)
         {
-            OnValidate();
+            layer.Layer.Tool = this;
         }
     }
 
-    public void PullTerrain()
-    {
-        HeightRes = _TerrainData.heightmapResolution;
-        _Mesh = _TerrainData.GetHeights(
-            0,
-            0,
-            HeightRes,
-            HeightRes);
-    }
+    //public void Start()
+    //{
+    //    this.enabled = false;
+    //}
 
     public void OnValidate()
     {
@@ -95,117 +62,31 @@ public class TerrainTool : MonoBehaviour
 
     public void RefreshTerrain()
     {
-        PullTerrain();
+        HeightRes = _TerrainData.heightmapResolution;
         size = _TerrainData.size;
         scale = size / HeightRes;
+        Mesh = new float[HeightRes, HeightRes];
 
-        if (PreviousPercentDistanceFromEdge != PercentDistanceFromEdge)
+        if (Layers != null)
         {
-            PreviousPercentDistanceFromEdge = PercentDistanceFromEdge;
-            BuildEdgeReductionMap();
-        }
-
-        if (!EdgeBorder.Equals(PreviousEdgeBorder))
-        {
-            PreviousEdgeBorder = new AnimationCurve(EdgeBorder.keys);
-            BuildEdgeReductionMap();
-        }
-
-        if (EdgeReductionMap == null)
-        {
-            BuildEdgeReductionMap();
-        }
-
-        RedrawTerrainMesh();
-        HandleFlatteners();
-        PushChanges();
-    }
-
-    private void HandleFlatteners()
-    {
-        foreach (var flattener in Flatteners)
-        {
-            flattener.RefreshContent();
-        }
-    }
-
-    private void BuildEdgeReductionMap()
-    {
-        
-        EdgeReductionMap = new float[HeightRes, HeightRes];
-
-        int half = HeightRes / 2;
-        var center = new Vector2Int(half, half);
-        var highBorder = PercentDistanceFromEdge * half;
-        var range = half - highBorder;
-        for (int x = 0; x < HeightRes; x++)
-        {
-            for (int y = 0; y < HeightRes; y++)
+            foreach (var layer in Layers)
             {
-                var distance = Vector2Int.Distance(center, new Vector2Int(x, y)) - highBorder;
-
-                if (distance < 0)
+                if (layer.Rebuild || RebuildAll)
                 {
-                    EdgeReductionMap[x, y] = 1;
-                    continue;
+                    //layer.Rebuild = false;
+                    layer.Layer.Rebuild();
                 }
 
-                if (distance > range)
+                if (layer.Apply || ApplyAll)
                 {
-                    EdgeReductionMap[x, y] = 0;
-                    continue;
+                    //layer.Apply = false;
+                    layer.Layer.Apply();
                 }
-
-                EdgeReductionMap[x, y] = EdgeBorder.Evaluate(1 - distance / range);
             }
         }
-    }
 
-    public void RedrawTerrainMesh()
-    {
-        if (Mesh == null)
-        {
-            PullTerrain();
-        }
-
-        for (int x = 0; x < HeightRes; x++)
-        {
-            for (int y = 0; y < HeightRes; y++)
-            {
-                Vector3 v = WorldPositionFromHeightMapIndex(x, y);
-
-                var flux0 = PerlinFluxSlope.Evaluate(
-                    Mathf.PerlinNoise(
-                        v.x * PerlinFluxStretch,
-                        v.z * PerlinFluxStretch));
-
-                var flux1 = 1f - flux0;
-
-                var perlin1 = PerlinSlope.Evaluate(
-                        Mathf.PerlinNoise(
-                            v.x * PerlinStretch,
-                            v.z * PerlinStretch))
-                    * HeightMultiplier;
-
-                var perlin2 = PerlinSlope2.Evaluate(
-                        Mathf.PerlinNoise(
-                            v.x * PerlinStretch2,
-                            v.z * PerlinStretch2))
-                    * HeightMultiplier2;
-
-                _Mesh[x, y] =
-                    (perlin1 * flux0 + perlin2 * flux1)
-                    * EdgeReductionMap[x, y];
-            }
-        }
-    }
-
-    public void PushChanges()
-    {
         _TerrainData.SetHeights(0, 0, _Mesh);
     }
-
-    public void OnBeforeSerialize() { }
 
     public Vector3 WorldPositionFromHeightMapIndex(int x, int y)
     {

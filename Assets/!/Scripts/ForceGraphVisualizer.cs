@@ -73,7 +73,7 @@ public class ForceGraphVisualizer : MonoBehaviour
         for (int i = 0; i < InstantiationCount; i++)
         {
             Vector2 pos = Random.insideUnitCircle;
-            var posConverted = new Vector3(pos.y, 0, pos.x);
+            var posConverted = new Vector3(pos.x, 0, pos.y);
             ForceGraph.Nodes.Add(new ForceGraph.Node()
             {
                 Position = posConverted

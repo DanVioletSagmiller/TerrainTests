@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[System.Serializable] 
 [CreateAssetMenu(menuName = "Terrain/Force Graph Settings")]
 public class ForceGraphSettings : ScriptableObject
 {
