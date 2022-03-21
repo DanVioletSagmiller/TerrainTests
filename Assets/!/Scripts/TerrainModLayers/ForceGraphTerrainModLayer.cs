@@ -1,8 +1,7 @@
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-[ExecuteAlways]
-public class ForceGraphVisualizer : MonoBehaviour
+[CreateAssetMenu(menuName = "Terrain/Layers/Force Graph")]
+public class ForceGraphTerrainModLayer : TerrainModLayer
 {
     [Header("Visual Configuration")]
     public bool _InstantiateRandomNodes = false;
@@ -17,7 +16,12 @@ public class ForceGraphVisualizer : MonoBehaviour
     [Header("Debug")]
     public float IterationTimeMS = 0;
     private int IterationsRemaining = 0;
-    private ForceGraph ForceGraph = new ForceGraph();
+    public ForceGraph ForceGraph = new ForceGraph();
+
+    public float Radius = 50f;
+
+    private float[,] Mesh;
+    private float[,] MeshStrength;
 
     private void EditorUpdate()
     {
@@ -40,8 +44,11 @@ public class ForceGraphVisualizer : MonoBehaviour
             IterationsRemaining -= 1;
             ForceGraph.SingleStepExecution();
         }
+
         duration.Stop();
-        this.IterationTimeMS = (float)duration.ElapsedMilliseconds;
+        this.IterationTimeMS = (float)duration.ElapsedMilliseconds; 
+        if (IterationsRemaining < 0) OnValidate();
+
     }
 
     private void OnEnable()
@@ -50,17 +57,78 @@ public class ForceGraphVisualizer : MonoBehaviour
         UnityEditor.EditorApplication.update += EditorUpdate;
     }
 
-    private void OnValidate()
+
+    public void OnValidate()
     {
-        ForceGraph.MoveForce = Settings.MoveForce;
-        ForceGraph.IterationsToStop = Settings.Iterations;
+        ForceGraph.Settings = Settings;
 
         if (_Stop)
         {
             _Stop = false;
             IterationsRemaining = -1;
         }
+
+        Tool.OnValidate();
     }
+
+    public override void Rebuild()
+    {
+
+        Mesh = new float[Tool.HeightRes, Tool.HeightRes];
+        MeshStrength = new float[Tool.HeightRes, Tool.HeightRes];
+
+        var anchor = ForceGraphVisualizerManager.Instance.transform.position;
+
+        var height = Tool.GetTerrainPercentForWorldHeight(anchor.y);
+        var res = Tool.HeightRes;
+        for (int x = 0; x < res; x++)
+        {
+            for (int y = 0; y < res; y++)
+            {
+                foreach (var node in ForceGraph.Nodes)
+                {
+                    var pos = node.Position * Settings.Scaling + anchor;
+
+                    var distance = ZeroDistance(
+                        pos,
+                        Tool.WorldPositionFromHeightMapIndex(x, y));
+
+                    if (distance < Radius)
+                    {
+                        Mesh[x, y] = height;
+                        MeshStrength[x, y] = 1f;
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    private float ZeroDistance(Vector3 v1, Vector3 v2)
+    {
+        v1.y = 0;
+        v2.y = 0;
+        return Vector3.Distance(v1, v2);
+    }
+
+    public override void Apply()
+    {
+        if (Mesh == null) Rebuild();
+
+        for(int x = 0; x < Tool.HeightRes; x++)
+        {
+            for(int y = 0; y < Tool.HeightRes; y++)
+            {
+                var overlayStrength = MeshStrength[x, y];
+                var originalStrength = 1f - overlayStrength;
+                Tool.Mesh[x, y] = 
+                    (originalStrength * Tool.Mesh[x,y]) 
+                    + (overlayStrength * Mesh[x, y]);
+            }
+        }
+    }
+
+
 
     private void InstantiateRandomNodes()
     {
@@ -99,36 +167,6 @@ public class ForceGraphVisualizer : MonoBehaviour
                     nodeJ.ConnectedNodes.Add(nodeI);
                 }
             }
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        //if (Settings == null) return;
-        var offset = transform.position;
-        // Draw Center Mark
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(offset, .01f * Settings.Scaling);
-
-        // Draw connecting lines
-        Gizmos.color = Color.red;
-        foreach (var node in ForceGraph.Nodes)
-        {
-            foreach (var n2 in node.ConnectedNodes)
-            {
-                Gizmos.DrawLine(
-                    node.Position * Settings.Scaling + offset, 
-                    n2.Position * Settings.Scaling + offset);
-            }
-        }
-
-        // Draw node points
-        Gizmos.color = Color.black;
-        foreach (var node in ForceGraph.Nodes)
-        {
-            Gizmos.DrawSphere(
-                node.Position * Settings.Scaling + offset, 
-                .025f * Settings.Scaling);
         }
     }
 }

@@ -343,11 +343,14 @@ MonoBehaviour:
     Rebuild: 1
     Apply: 1
   - Layer: {fileID: 11400000, guid: c13961d222bef8742b06e1ccb08560ee, type: 2}
-    Rebuild: 0
+    Rebuild: 1
     Apply: 1
-  RebuildAll: 0
+  - Layer: {fileID: 11400000, guid: 5df380abedfe95740ac4b8419120d034, type: 2}
+    Rebuild: 1
+    Apply: 1
+  RebuildAll: 1
   ApplyAll: 0
-  HeightRes: 257
+  HeightRes: 129
 --- !u!1 &1324603677
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +470,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364649848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 141.65848, y: 651.01764, z: 975.1098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -558,7 +561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 48.35, y: 136.65, z: 0}
 --- !u!1 &1757368539
 GameObject:
@@ -589,7 +592,7 @@ Transform:
   m_Children:
   - {fileID: 1854990004}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854990003
 GameObject:
@@ -616,7 +619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854990003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 500, y: 15, z: 500}
+  m_LocalPosition: {x: 500, y: 18, z: 500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1757368540}
@@ -634,10 +637,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f5fac24f8c598459b051d9a27dcff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _InstantiateRandomNodes: 0
-  _Stop: 0
-  _Instant: 0
-  PercentConnectionChance: 0.029
-  InstantiationCount: 37
-  Settings: {fileID: 11400000, guid: a89674bb73cd93a45b92b4a77f70b23e, type: 2}
-  IterationTimeMS: 0
+  TerrainModLayer: {fileID: 11400000, guid: 5df380abedfe95740ac4b8419120d034, type: 2}

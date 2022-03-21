@@ -71,6 +71,7 @@ public class TerrainTool : MonoBehaviour
         {
             foreach (var layer in Layers)
             {
+                layer.Layer.Tool = this;
                 if (layer.Rebuild || RebuildAll)
                 {
                     //layer.Rebuild = false;

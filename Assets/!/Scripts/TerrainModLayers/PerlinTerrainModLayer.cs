@@ -66,6 +66,13 @@ public class PerlinTerrainModLayer : TerrainModLayer
     public override void Apply()
     {
         if (Mesh == null) Rebuild();
-        Tool.Mesh = Mesh;
+
+        for (int x = 0; x < Tool.HeightRes; x++)
+        {
+            for (int y = 0; y < Tool.HeightRes; y++)
+            {
+                Tool.Mesh[x, y] = Mesh[x, y];
+            }
+        }
     }
 }

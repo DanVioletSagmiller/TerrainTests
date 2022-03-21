@@ -17,13 +17,12 @@ public class ForceGraph
     }
 
     public List<Node> Nodes = new List<Node>();
-    public float MoveForce = .1f;
-    public int IterationsToStop = 100;
+    public ForceGraphSettings Settings;
     public Vector3 AnchorPosition = Vector3.zero;
 
     public void FullExecution()
     {
-        for(int i = 0; i < IterationsToStop; i++)
+        for(int i = 0; i < Settings.Iterations; i++)
         {
             SingleStepExecution();
         }
@@ -58,7 +57,7 @@ public class ForceGraph
         var diff = n1.Position - toPosition;
         var dir = diff.normalized;
         var force =
-            MoveForce
+            Settings.MoveForce
             * dir
             * (1f - (Mathf.Clamp(distance, 0, 1f)));
 
@@ -70,7 +69,7 @@ public class ForceGraph
         var diff = n1.Position - toPosition;
         var dir = diff.normalized;
         var force =
-            MoveForce
+            Settings.MoveForce
             * dir
             * Mathf.Clamp(distance, 0, 1f);
 

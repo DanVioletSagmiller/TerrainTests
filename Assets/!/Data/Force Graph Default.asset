@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30420161e0c57b4f8a09b1dcadfd32e, type: 3}
   m_Name: Force Graph Default
   m_EditorClassIdentifier: 
-  Scaling: 233.1
+  Scaling: 291.7
   MoveForce: 0.01
   Iterations: 500

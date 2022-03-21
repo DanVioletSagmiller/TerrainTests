@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Perlin Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  PerlinStretch: 0.0075
-  HeightMultiplier: 0.155
+  PerlinStretch: 0.016
+  HeightMultiplier: 0.096
   PerlinSlope:
     serializedVersion: 2
     m_Curve:
@@ -57,8 +57,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PerlinStretch2: 0.0071
-  HeightMultiplier2: 0.236
+  PerlinStretch2: 0.0081
+  HeightMultiplier2: 0.088
   PerlinSlope2:
     serializedVersion: 2
     m_Curve:
@@ -110,63 +110,36 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PerlinFluxStretch: 0.0142
+  PerlinFluxStretch: 0.006
   PerlinFluxSlope:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.12394464
-      value: -0.010356069
-      inSlope: -1.1784272
-      outSlope: -1.1784272
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.38351792
-      value: 0.28507316
-      inSlope: 0.5395761
-      outSlope: 0.5395761
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.69389725
-      value: 0.334298
-      inSlope: 0.03908147
-      outSlope: 0.03908147
+      time: 0.5
+      value: 1
+      inSlope: Infinity
+      outSlope: Infinity
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.9008378
-      value: 0.6858418
-      inSlope: 0.10750931
-      outSlope: 0.0071564894
-      tangentMode: 1
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.56406826
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0277973
-      value: 1.0036604
-      inSlope: 0.0184893
-      outSlope: 0.0184893
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.31719986
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

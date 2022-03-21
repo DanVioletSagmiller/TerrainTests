@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88918a8b3ad64e4ab8b851dc693f695, type: 3}
+  m_Name: Force Graph Layer
+  m_EditorClassIdentifier: 
+  Tool: {fileID: 0}
+  _InstantiateRandomNodes: 0
+  _Stop: 0
+  _Instant: 1
+  PercentConnectionChance: 0.067
+  InstantiationCount: 25
+  Settings: {fileID: 11400000, guid: a89674bb73cd93a45b92b4a77f70b23e, type: 2}
+  IterationTimeMS: 81
+  Radius: 50
