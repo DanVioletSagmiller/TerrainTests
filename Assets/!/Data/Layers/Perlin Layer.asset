@@ -13,52 +13,79 @@ MonoBehaviour:
   m_Name: Perlin Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  PerlinStretch: 0.016
-  HeightMultiplier: 0.096
+  PerlinStretch: 0.0052
+  HeightMultiplier: 0.121
   PerlinSlope:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.6605989
-      outSlope: 0.6605989
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2611059
+      value: 0.5163163
+      inSlope: -1.1784272
+      outSlope: -1.1784272
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.34454736
-      value: 0.2276076
-      inSlope: 1.7997088
-      outSlope: 1.7997088
+      time: 0.2764146
+      value: 0.18147594
+      inSlope: Infinity
+      outSlope: Infinity
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.5670586
-      value: 0.9402325
-      inSlope: 0.29230633
-      outSlope: 0.29230633
+      time: 0.4166295
+      value: 0.39719474
+      inSlope: Infinity
+      outSlope: Infinity
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.38841
-      outWeight: 0.4284455
+      inWeight: 1
+      outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.13804983
-      outSlope: 0.13804983
-      tangentMode: 34
+      time: 0.6069
+      value: 0.65555704
+      inSlope: 0.88500506
+      outSlope: 0.88500506
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.3311082
+    - serializedVersion: 3
+      time: 0.92614675
+      value: 1.0000015
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0259053
+      value: 1.0036604
+      inSlope: 0.18090692
+      outSlope: 0.18090692
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.32735986
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PerlinStretch2: 0.0081
-  HeightMultiplier2: 0.088
+  PerlinStretch2: 0.0027
+  HeightMultiplier2: 0.113
   PerlinSlope2:
     serializedVersion: 2
     m_Curve:
@@ -110,7 +137,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PerlinFluxStretch: 0.006
+  PerlinFluxStretch: 0.007
   PerlinFluxSlope:
     serializedVersion: 2
     m_Curve:

@@ -5,8 +5,10 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
 {
     [Header("Visual Configuration")]
     public bool _InstantiateRandomNodes = false;
+    public bool _ProcessEveryStep = false;
     public bool _Stop = false;
     public bool _Instant = true;
+
 
     [Range(0f, 1f)]
     public float PercentConnectionChance = 0.8f;
@@ -47,7 +49,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
 
         duration.Stop();
         this.IterationTimeMS = (float)duration.ElapsedMilliseconds; 
-        if (IterationsRemaining < 0) OnValidate();
+        if (IterationsRemaining < 0 || _ProcessEveryStep) OnValidate();
 
     }
 
@@ -68,7 +70,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
             IterationsRemaining = -1;
         }
 
-        Tool.OnValidate();
+        if (Tool != null) Tool.OnValidate();
     }
 
     public override void Rebuild()

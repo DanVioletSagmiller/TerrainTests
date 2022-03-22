@@ -50,11 +50,6 @@ public class TerrainTool : MonoBehaviour
         }
     }
 
-    //public void Start()
-    //{
-    //    this.enabled = false;
-    //}
-
     public void OnValidate()
     {
         RefreshTerrain();

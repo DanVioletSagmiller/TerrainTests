@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
   _InstantiateRandomNodes: 0
+  _ProcessEveryStep: 1
   _Stop: 0
-  _Instant: 1
-  PercentConnectionChance: 0.067
-  InstantiationCount: 25
+  _Instant: 0
+  PercentConnectionChance: 0.31
+  InstantiationCount: 8
   Settings: {fileID: 11400000, guid: a89674bb73cd93a45b92b4a77f70b23e, type: 2}
-  IterationTimeMS: 81
-  Radius: 50
+  IterationTimeMS: 0
+  Radius: 86

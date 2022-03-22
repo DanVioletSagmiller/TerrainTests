@@ -343,12 +343,12 @@ MonoBehaviour:
     Rebuild: 1
     Apply: 1
   - Layer: {fileID: 11400000, guid: c13961d222bef8742b06e1ccb08560ee, type: 2}
-    Rebuild: 1
+    Rebuild: 0
     Apply: 1
   - Layer: {fileID: 11400000, guid: 5df380abedfe95740ac4b8419120d034, type: 2}
     Rebuild: 1
     Apply: 1
-  RebuildAll: 1
+  RebuildAll: 0
   ApplyAll: 0
   HeightRes: 129
 --- !u!1 &1324603677
