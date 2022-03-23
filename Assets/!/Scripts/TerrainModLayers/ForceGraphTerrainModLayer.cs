@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Terrain/Layers/Force Graph")]
-public class ForceGraphTerrainModLayer : TerrainModLayer
+public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallbackReceiver
 {
     [Header("Visual Configuration")]
     public bool _InstantiateRandomNodes = false;
     public bool _ProcessEveryStep = false;
     public bool _Stop = false;
     public bool _Instant = true;
-
 
     [Range(0f, 1f)]
     public float PercentConnectionChance = 0.8f;
@@ -48,7 +49,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
         }
 
         duration.Stop();
-        this.IterationTimeMS = (float)duration.ElapsedMilliseconds; 
+        this.IterationTimeMS = (float)duration.ElapsedMilliseconds;
         if (IterationsRemaining < 0 || _ProcessEveryStep) OnValidate();
 
     }
@@ -117,20 +118,18 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
     {
         if (Mesh == null) Rebuild();
 
-        for(int x = 0; x < Tool.HeightRes; x++)
+        for (int x = 0; x < Tool.HeightRes; x++)
         {
-            for(int y = 0; y < Tool.HeightRes; y++)
+            for (int y = 0; y < Tool.HeightRes; y++)
             {
                 var overlayStrength = MeshStrength[x, y];
                 var originalStrength = 1f - overlayStrength;
-                Tool.Mesh[x, y] = 
-                    (originalStrength * Tool.Mesh[x,y]) 
+                Tool.Mesh[x, y] =
+                    (originalStrength * Tool.Mesh[x, y])
                     + (overlayStrength * Mesh[x, y]);
             }
         }
     }
-
-
 
     private void InstantiateRandomNodes()
     {
@@ -170,5 +169,27 @@ public class ForceGraphTerrainModLayer : TerrainModLayer
                 }
             }
         }
+    }
+
+    [TextArea(1, 20)]
+    public string ForceGraphJson = null;
+    public void OnBeforeSerialize()
+    {
+        ForceGraphJson = JsonConvert.SerializeObject(
+            this.ForceGraph,
+            Formatting.Indented,
+            new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
+    }
+
+
+    public void OnAfterDeserialize()
+    {
+        if (string.IsNullOrEmpty(ForceGraphJson)) return;
+        this.ForceGraph = (ForceGraph)JsonConvert.DeserializeObject(
+            ForceGraphJson, 
+            typeof(ForceGraph));
     }
 }

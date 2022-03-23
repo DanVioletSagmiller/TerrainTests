@@ -9,16 +9,19 @@ using UnityEngine;
 /// SingleStepExecution() with FrameTime being Time.deltaTime</remarks>
 public class ForceGraph
 {
+    [System.Serializable]
     public class Node
     {
         public List<Node> ConnectedNodes = new List<Node>();
-        public Object ExternalDetails;
+        public string Key;
         public Vector3 Position;
     }
 
     public List<Node> Nodes = new List<Node>();
+    [Newtonsoft.Json.JsonIgnore]
     public ForceGraphSettings Settings;
     public Vector3 AnchorPosition = Vector3.zero;
+    //public bool TestDataKeep = false;
 
     public void FullExecution()
     {

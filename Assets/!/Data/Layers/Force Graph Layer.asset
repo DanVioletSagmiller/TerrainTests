@@ -14,11 +14,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
   _InstantiateRandomNodes: 0
-  _ProcessEveryStep: 1
+  _ProcessEveryStep: 0
   _Stop: 0
-  _Instant: 0
+  _Instant: 1
   PercentConnectionChance: 0.31
   InstantiationCount: 8
   Settings: {fileID: 11400000, guid: a89674bb73cd93a45b92b4a77f70b23e, type: 2}
-  IterationTimeMS: 0
+  IterationTimeMS: 9
   Radius: 86
+  ForceGraphJson: "{\r\n  \"$id\": \"1\",\r\n  \"Nodes\": [\r\n    {\r\n      \"$id\":
+    \"2\",\r\n      \"ConnectedNodes\": [\r\n        {\r\n          \"$id\": \"3\",\r\n         
+    \"ConnectedNodes\": [\r\n            {\r\n              \"$ref\": \"2\"\r\n           
+    },\r\n            {\r\n              \"$id\": \"4\",\r\n              \"ConnectedNodes\":
+    [\r\n                {\r\n                  \"$ref\": \"3\"\r\n               
+    }\r\n              ],\r\n              \"Key\": null,\r\n              \"Position\":
+    {\r\n                \"x\": -0.1048109,\r\n                \"y\": 0.0,\r\n               
+    \"z\": -0.7093479\r\n              }\r\n            },\r\n            {\r\n             
+    \"$id\": \"5\",\r\n              \"ConnectedNodes\": [\r\n                {\r\n                 
+    \"$ref\": \"3\"\r\n                },\r\n                {\r\n                 
+    \"$id\": \"6\",\r\n                  \"ConnectedNodes\": [\r\n                   
+    {\r\n                      \"$ref\": \"5\"\r\n                    },\r\n                   
+    {\r\n                      \"$id\": \"7\",\r\n                      \"ConnectedNodes\":
+    [\r\n                        {\r\n                          \"$ref\": \"6\"\r\n                       
+    }\r\n                      ],\r\n                      \"Key\": null,\r\n                     
+    \"Position\": {\r\n                        \"x\": -0.710331261,\r\n                       
+    \"y\": 0.0,\r\n                        \"z\": 0.14753522\r\n                     
+    }\r\n                    }\r\n                  ],\r\n                  \"Key\":
+    null,\r\n                  \"Position\": {\r\n                    \"x\": -0.408685416,\r\n                   
+    \"y\": 0.0,\r\n                    \"z\": 0.00349066081\r\n                 
+    }\r\n                }\r\n              ],\r\n              \"Key\": null,\r\n             
+    \"Position\": {\r\n                \"x\": 0.127350435,\r\n                \"y\":
+    0.0,\r\n                \"z\": -0.09070147\r\n              }\r\n           
+    }\r\n          ],\r\n          \"Key\": null,\r\n          \"Position\": {\r\n           
+    \"x\": 0.0575192161,\r\n            \"y\": 0.0,\r\n            \"z\": -0.3339741\r\n         
+    }\r\n        },\r\n        {\r\n          \"$id\": \"8\",\r\n          \"ConnectedNodes\":
+    [\r\n            {\r\n              \"$ref\": \"2\"\r\n            }\r\n         
+    ],\r\n          \"Key\": null,\r\n          \"Position\": {\r\n            \"x\":
+    0.173779771,\r\n            \"y\": 0.0,\r\n            \"z\": 0.6737428\r\n         
+    }\r\n        }\r\n      ],\r\n      \"Key\": null,\r\n      \"Position\": {\r\n       
+    \"x\": 0.08768354,\r\n        \"y\": 0.0,\r\n        \"z\": 0.336333722\r\n     
+    }\r\n    },\r\n    {\r\n      \"$id\": \"9\",\r\n      \"ConnectedNodes\": [],\r\n     
+    \"Key\": null,\r\n      \"Position\": {\r\n        \"x\": 0.7843977,\r\n       
+    \"y\": 0.0,\r\n        \"z\": -0.0268757567\r\n      }\r\n    },\r\n    {\r\n     
+    \"$ref\": \"3\"\r\n    },\r\n    {\r\n      \"$ref\": \"4\"\r\n    },\r\n   
+    {\r\n      \"$ref\": \"5\"\r\n    },\r\n    {\r\n      \"$ref\": \"7\"\r\n   
+    },\r\n    {\r\n      \"$ref\": \"8\"\r\n    },\r\n    {\r\n      \"$ref\": \"6\"\r\n   
+    }\r\n  ],\r\n  \"AnchorPosition\": {\r\n    \"x\": 0.0,\r\n    \"y\": 0.0,\r\n   
+    \"z\": 0.0\r\n  }\r\n}"
