@@ -60,6 +60,26 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
         UnityEditor.EditorApplication.update += EditorUpdate;
     }
 
+    public float[,] GetMesh()
+    {
+        if (Mesh == null)
+        {
+            Rebuild();
+        }
+
+        return Mesh;
+    }
+
+    public float[,] GetMeshStrength()
+    {
+        if (MeshStrength == null)
+        {
+            Rebuild();
+        }
+
+        return MeshStrength;
+    }
+
 
     public void OnValidate()
     {
@@ -98,8 +118,11 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
 
                     if (distance < Radius)
                     {
+                        var strength = distance / Radius;
+                        var appliedStrength = Settings.BlendingOverDistance.Evaluate(strength);
                         Mesh[x, y] = height;
-                        MeshStrength[x, y] = 1f;
+                        MeshStrength[x, y] += appliedStrength;
+                        if (MeshStrength[x, y] > 1f) MeshStrength[x, y] = 1f;
                         continue;
                     }
                 }

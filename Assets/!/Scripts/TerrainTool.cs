@@ -50,6 +50,16 @@ public class TerrainTool : MonoBehaviour
         }
     }
 
+    public T GetLayer<T>() where T : TerrainModLayer
+    {
+        foreach(var layer in Layers)
+        {
+            if (layer.Layer is T) return (T)layer.Layer;
+        }
+
+        return null;
+    }
+
     public void OnValidate()
     {
         RefreshTerrain();
