@@ -15,13 +15,20 @@ public class ForceGraph
         public List<Node> ConnectedNodes = new List<Node>();
         public string Key;
         public Vector3 Position;
+        public int Id;
+        public static int PreviousId = 0;
+
+        public Node()
+        {
+            Id = ++PreviousId;
+        }
     }
 
     public List<Node> Nodes = new List<Node>();
+
     [Newtonsoft.Json.JsonIgnore]
     public ForceGraphSettings Settings;
     public Vector3 AnchorPosition = Vector3.zero;
-    //public bool TestDataKeep = false;
 
     public void FullExecution()
     {

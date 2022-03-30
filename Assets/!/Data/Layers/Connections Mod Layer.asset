@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30420161e0c57b4f8a09b1dcadfd32e, type: 3}
-  m_Name: Force Graph Default
+  m_Script: {fileID: 11500000, guid: 011a9c93d7131094fbb7f82d4b3ff312, type: 3}
+  m_Name: Connections Mod Layer
   m_EditorClassIdentifier: 
-  Scaling: 546.4
-  MoveForce: 0.01
-  Iterations: 500
-  BlendingOverDistance:
+  Tool: {fileID: 0}
+  PathWidth: 50
+  PathWallShape:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -28,9 +27,9 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.84520257
-      value: 0.9999819
-      inSlope: -0.000021438425
+      time: 0.5999633
+      value: 1.0049334
+      inSlope: 0.008222765
       outSlope: 0.12093861
       tangentMode: 5
       weightedMode: 0
