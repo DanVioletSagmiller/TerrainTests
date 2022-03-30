@@ -10,9 +10,8 @@ public class Helper
         var diff = lineB - lineA;
         var length = diff.magnitude;
         var normal = diff.normalized;
-        var v = position - lineA;
-        var dot = Vector3.Dot(v, normal);
-        dot = Mathf.Clamp(dot, 0f, length);
+        var diffA = position - lineA;
+        var dot = Mathf.Clamp(Vector3.Dot(diffA, normal), 0f, length);
         return lineA + normal * dot;
     }
 

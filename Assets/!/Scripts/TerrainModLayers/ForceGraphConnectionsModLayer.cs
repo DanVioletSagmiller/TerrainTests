@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Terrain/Layers/Force Graph Connections Layer")]
 public class ForceGraphConnectionsModLayer : TerrainModLayer
 {
+    [Tooltip("How far out from the connection line does this get.")]
     public float PathWidth = 5f;
     public AnimationCurve PathWallShape;
     private float[,] Mesh = null;
@@ -15,8 +16,6 @@ public class ForceGraphConnectionsModLayer : TerrainModLayer
         Tool.OnValidate();
     }
 
-   
-
     public override void Rebuild()
     {
         var forceGraph = Tool.GetLayer<ForceGraphTerrainModLayer>();
@@ -26,7 +25,7 @@ public class ForceGraphConnectionsModLayer : TerrainModLayer
         }
 
         var content = new List<Vector3[]>();
-
+        var anchor = ForceGraphVisualizerManager.Instance.transform.position;
 
         foreach (var node in forceGraph.ForceGraph.Nodes)
         {
@@ -35,15 +34,14 @@ public class ForceGraphConnectionsModLayer : TerrainModLayer
                 if (node.Id > node2.Id) continue;
                 content.Add(new Vector3[] 
                 { 
-                    node.Position * forceGraph.Settings.Scaling, 
-                    node2.Position * forceGraph.Settings.Scaling
+                    node.Position * forceGraph.Settings.Scaling + anchor, 
+                    node2.Position * forceGraph.Settings.Scaling + anchor
                 });
             }
         }
 
         Mesh = new float[Tool.HeightRes, Tool.HeightRes];
         MeshStrength = new float[Tool.HeightRes, Tool.HeightRes];
-        var anchor = ForceGraphVisualizerManager.Instance.transform.position;
         var height = Tool.GetTerrainPercentForWorldHeight(anchor.y);
 
         for (int x = 0; x < Tool.HeightRes; x++)
@@ -51,14 +49,11 @@ public class ForceGraphConnectionsModLayer : TerrainModLayer
             for (int y = 0; y < Tool.HeightRes; y++)
             {
                 var p = Tool.WorldPositionFromHeightMapIndex(x, y);
+                p.y = anchor.y;
                 foreach (var c in content)
                 {
-                    var closestPoint = Helper.ClosestPointOnLineSegment(
-                        p, 
-                        c[0] + anchor, 
-                        c[1] + anchor);
+                    var closestPoint = Helper.ClosestPointOnLineSegment(p, c[0], c[1]);
                     var distance = Vector3.Distance(p, closestPoint);
-                        //UnityEditor.HandleUtility.DistancePointToLineSegment(p, c[0], c[1]);
                     if (distance > PathWidth) continue;
 
                     var percent = distance / PathWidth;

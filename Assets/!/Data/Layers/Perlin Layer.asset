@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Perlin Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  PerlinStretch: 0.0052
-  HeightMultiplier: 0.121
+  PerlinStretch: 0.0088
+  HeightMultiplier: 0.231
   PerlinSlope:
     serializedVersion: 2
     m_Curve:
@@ -84,8 +84,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PerlinStretch2: 0.0027
-  HeightMultiplier2: 0.113
+  PerlinStretch2: 0.0059
+  HeightMultiplier2: 0.227
   PerlinSlope2:
     serializedVersion: 2
     m_Curve:

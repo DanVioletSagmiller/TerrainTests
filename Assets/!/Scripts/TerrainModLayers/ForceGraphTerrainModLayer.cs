@@ -10,6 +10,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
     public bool _ProcessEveryStep = false;
     public bool _Stop = false;
     public bool _Instant = true;
+    public bool _KeepRunning = false;
 
     [Range(0f, 1f)]
     public float PercentConnectionChance = 0.8f;
@@ -46,6 +47,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
         {
             IterationsRemaining -= 1;
             ForceGraph.SingleStepExecution();
+            if (IterationsRemaining < 0 && _KeepRunning) InstantiateRandomNodes(true);
         }
 
         duration.Stop();
@@ -154,22 +156,32 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
         }
     }
 
-    private void InstantiateRandomNodes()
+    private void InstantiateRandomNodes(bool reusePoints = false)
     {
         IterationsRemaining = Settings.Iterations;
 
         // clear old nodes
-        ForceGraph.Nodes.Clear();
+        if (!reusePoints) ForceGraph.Nodes.Clear();
+        else
+        {
+            foreach(var node in ForceGraph.Nodes)
+            {
+                node.ConnectedNodes.Clear();
+            }
+        }
 
         // generate nodes
-        for (int i = 0; i < InstantiationCount; i++)
+        if (!reusePoints)
         {
-            Vector2 pos = Random.insideUnitCircle;
-            var posConverted = new Vector3(pos.x, 0, pos.y);
-            ForceGraph.Nodes.Add(new ForceGraph.Node()
+            for (int i = 0; i < InstantiationCount; i++)
             {
-                Position = posConverted
-            });
+                Vector2 pos = Random.insideUnitCircle;
+                var posConverted = new Vector3(pos.x, 0, pos.y);
+                ForceGraph.Nodes.Add(new ForceGraph.Node()
+                {
+                    Position = posConverted
+                });
+            }
         }
 
         // assign random connections
@@ -212,7 +224,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
     {
         if (string.IsNullOrEmpty(ForceGraphJson)) return;
         this.ForceGraph = (ForceGraph)JsonConvert.DeserializeObject(
-            ForceGraphJson, 
+            ForceGraphJson,
             typeof(ForceGraph));
     }
 }

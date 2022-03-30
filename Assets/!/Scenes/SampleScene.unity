@@ -340,7 +340,7 @@ MonoBehaviour:
   _TerrainData: {fileID: 15600000, guid: ac909e443a4d5aa488f91052946756af, type: 2}
   Layers:
   - Layer: {fileID: 11400000, guid: 5fc368cb2b8337247b977c195b5d181f, type: 2}
-    Rebuild: 1
+    Rebuild: 0
     Apply: 1
   - Layer: {fileID: 11400000, guid: c13961d222bef8742b06e1ccb08560ee, type: 2}
     Rebuild: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Connections Mod Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  PathWidth: 50
+  PathWidth: 26.3
   PathWallShape:
     serializedVersion: 2
     m_Curve:
@@ -27,9 +27,9 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5999633
-      value: 1.0049334
-      inSlope: 0.008222765
+      time: 0.3072109
+      value: 0.9999819
+      inSlope: -0.00005898167
       outSlope: 0.12093861
       tangentMode: 5
       weightedMode: 0
