@@ -13,6 +13,7 @@ public class ForceGraphConnectionsModLayer : TerrainModLayer
 
     public void OnValidate()
     {
+        if (Tool == null) return;
         Tool.OnValidate();
     }
 
