@@ -4,12 +4,10 @@
 public class HeightPainterTerrainModLayer : TerrainModLayer
 {
     public float[,,] Splat = null;
-    public bool Change = false;
     public int SquareSize = 1;
 
     public void OnValidate()
     {
-        if (Change) Change = false;
         Tool.OnValidate();
     }
 
@@ -20,18 +18,17 @@ public class HeightPainterTerrainModLayer : TerrainModLayer
             Tool._TerrainData.alphamapHeight, 
             Tool._TerrainData.alphamapLayers];
 
+        var doubleSize = SquareSize * 2;
+
         for (int x = 0; x < Tool._TerrainData.alphamapWidth; x++)
         {
-            for (int y = 0; y < Tool._TerrainData.alphamapWidth; y++)
+            for (int y = 0; y < Tool._TerrainData.alphamapHeight; y++)
             {
-                for(int l = 0; l < Tool._TerrainData.alphamapLayers; l++)
-                {
-                    var xOn = x % SquareSize + 1 > SquareSize / 2;
-                    var yOn = y % SquareSize + 1 > SquareSize / 2;
-                    if (xOn) yOn = !yOn;
-                    if (yOn) Splat[x, y, l] = 1;
-                    else Splat[x, y, l] = 0;
-                }
+                var xOn = (x % doubleSize) + 1 > SquareSize;
+                var yOn = (y % doubleSize) + 1 > SquareSize;
+                //if (xOn) yOn = !yOn;
+                if (yOn && !xOn || !yOn && xOn) Splat[x, y, 0] = 0;
+                else Splat[x, y, 1] = 1;
             }
         }
     }

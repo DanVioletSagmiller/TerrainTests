@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perlin Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  PerlinStretch: 0.0088
+  PerlinStretch: 0.01218
   HeightMultiplier: 0.231
   PerlinSlope:
     serializedVersion: 2

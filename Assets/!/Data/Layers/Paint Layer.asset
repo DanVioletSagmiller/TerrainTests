@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Paint Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  Change: 0
-  SquareSize: 100
+  SquareSize: 199
