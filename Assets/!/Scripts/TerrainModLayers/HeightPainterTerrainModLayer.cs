@@ -27,7 +27,7 @@ public class HeightPainterTerrainModLayer : TerrainModLayer
                 var xOn = (x % doubleSize) + 1 > SquareSize;
                 var yOn = (y % doubleSize) + 1 > SquareSize;
                 //if (xOn) yOn = !yOn;
-                if (yOn && !xOn || !yOn && xOn) Splat[x, y, 0] = 0;
+                if (yOn && !xOn || !yOn && xOn) Splat[x, y, 0] = 1;
                 else Splat[x, y, 1] = 1;
             }
         }
