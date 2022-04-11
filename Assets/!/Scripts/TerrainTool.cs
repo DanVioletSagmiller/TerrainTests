@@ -79,13 +79,11 @@ public class TerrainTool : MonoBehaviour
                 layer.Layer.Tool = this;
                 if (layer.Rebuild || RebuildAll)
                 {
-                    //layer.Rebuild = false;
                     layer.Layer.Rebuild();
                 }
 
                 if (layer.Apply || ApplyAll)
                 {
-                    //layer.Apply = false;
                     layer.Layer.Apply();
                 }
             }

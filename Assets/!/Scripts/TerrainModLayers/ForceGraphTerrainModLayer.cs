@@ -52,7 +52,7 @@ public class ForceGraphTerrainModLayer : TerrainModLayer, ISerializationCallback
 
         duration.Stop();
         this.IterationTimeMS = (float)duration.ElapsedMilliseconds;
-        if (IterationsRemaining < 0 || _ProcessEveryStep) OnValidate();
+        Tool.OnValidate();
 
     }
 

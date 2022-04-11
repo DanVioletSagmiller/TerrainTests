@@ -1,23 +1,12 @@
-﻿using UnityEditor;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-
-#if UNITY_EDITOR
+﻿using System.Collections.Generic;
 using UnityEngine;
-#endif // UNITY_EDITOR
 
 [CreateAssetMenu(menuName = "Terrain/Layers/Paint By Height")]
 public class HeightPainterTerrainModLayer : TerrainModLayer
 {
-    [System.Serializable]
-    public class TopologyLayer
-    {
-        public int TargetHeight = 0;
-        public int Index = 0;
-    }
 
     public float[,,] Splat = null;
-    public List<TopologyLayer> Topologies;
+    public float[] Heights;
 
     public void OnValidate()
     {
@@ -31,32 +20,33 @@ public class HeightPainterTerrainModLayer : TerrainModLayer
         var layerCount = Tool._TerrainData.alphamapLayers;
         Splat = new float[maxX, maxY, layerCount];
 
-        Topologies.Sort((a, b) => a.TargetHeight - b.TargetHeight);
         bool usedTopology = false;
-        for (int x = 0; x < Tool._TerrainData.alphamapWidth; x++)
+        for (int x = 0; x < maxX; x++)
         {
-            for (int y = 0; y < Tool._TerrainData.alphamapHeight; y++)
+            for (int y = 0; y < maxY; y++)
             {
                 float percentX = (float)x / (float)maxX;
                 float percentY = (float)y / (float)maxY;
-                float height = Tool._TerrainData.GetHeight(
-                    Mathf.RoundToInt(percentY * Tool.HeightRes), 
-                    Mathf.RoundToInt(percentX * Tool.HeightRes));
+                float height = Tool.transform.position.y 
+                    + Tool._TerrainData.heightmapScale.y 
+                    * Tool.Mesh[
+                        Mathf.RoundToInt(percentX * Tool.HeightRes), 
+                        Mathf.RoundToInt(percentY * Tool.HeightRes)];
 
                 usedTopology = false;
-                for (int i = 1; i < Topologies.Count; i++)
+                for (int i = 1; i < Heights.Length; i++)
                 {
-                    if(Topologies[i].TargetHeight < height)
+                    if(Heights[i] > height)
                     {
                         usedTopology = true;
-                        Splat[x, y, Topologies[i - 1].Index] = 1;
+                        Splat[x, y, i - 1] = 1;
                         break;
                     }
                 }
 
                 if (!usedTopology)
                 {
-                    Splat[x, y, Topologies[Topologies.Count - 1].Index] = 1;
+                    Splat[x, y, Heights.Length - 1] = 1;
                 }
             }
         }
