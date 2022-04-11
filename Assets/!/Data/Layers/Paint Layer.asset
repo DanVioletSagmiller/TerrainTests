@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Paint Layer
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
-  SquareSize: 199
+  Topologies:
+  - TargetHeight: -8
+    Index: 0
+  - TargetHeight: 23
+    Index: 1
