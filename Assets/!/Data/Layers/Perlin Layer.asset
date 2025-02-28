@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tool: {fileID: 0}
   PerlinStretch: 0.01218
-  HeightMultiplier: 0.231
+  HeightMultiplier: 0.39
   PerlinSlope:
     serializedVersion: 2
     m_Curve:
